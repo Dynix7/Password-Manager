@@ -18,7 +18,7 @@ password = input("Enter Password: ")
 
 
 
-def getHash(password=None):
+def getKey(password=None):
 
     #Prompts for a password if one isn't given
     if password == None:
@@ -29,15 +29,15 @@ def getHash(password=None):
     parts = result.split("$")
 
     #Separates the given and only returns the salt and hash not the other parameters
-    #btw this only works since im just using the default settings for this
+    #btw i can only give the salt and key this only works since im just using the default settings for this
 
     salt = parts[4]
-    hash = parts[5]
+    key = parts[5]
 
-    return hash, salt
+    return key, salt
 
 
-print(getHash(password=password))
+print(getKey(password=password))
 
 
 
