@@ -1,5 +1,8 @@
 import atexit
+
 import argon2
+#https://argon2-cffi.readthedocs.io/en/stable/api.html
+
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 import tkinter as tk
@@ -7,37 +10,51 @@ import tkinter as tk
 
 #haha guys im aura farming by making insecure password manager
 
-#Generate salt, Added to the password so hash output is differnt and rainbow table less work
-salt = b''
 
-#Sets up the argon2 thingy
-ph = argon2.PasswordHasher()
 
 password = input("Enter Password: ")
 
 
-
-
+#HM OK CHAT ACTUALLY IT GIVES THE BASE64 AND NOT ACTUAL BYTES SO CHAT WAIT A SEC
+#This generates the 32 byte key from the password using argon2
 def getKey(password=None):
 
     #Prompts for a password if one isn't given
     if password == None:
         password = input("Enter Password: ")
-    #Generates the Hash from given password and gives the Salt and the Hash
-    result = ph.hash(password)
 
-    parts = result.split("$")
+    #Turns the string to bytes
+    password = password.encode()
 
-    #Separates the given and only returns the salt and hash not the other parameters
-    #btw i can only give the salt and key this only works since im just using the default settings for this
+    #Generate random 16 byte salt
+    salt = get_random_bytes(16)
 
-    salt = parts[4]
-    key = parts[5]
+    #Just using default parameters for time, memory, and parallelism listed on documentation with ID type being the most secure
+    #  this function DIRECTLY GIVES THE 32bytes and not base64encoded
+    
+    key = argon2.low_level.hash_secret_raw(password, salt, time_cost=3, memory_cost=65536,
+    parallelism=4, hash_len=32, type=argon2.low_level.Type.ID)
+
 
     return key, salt
 
+key, salt = getKey(password=password)
 
-print(getKey(password=password))
+print(key, salt)
+
+def encrypt(key, message):
+    #Generates the Nonce/IV (basically random bytes to ensure every encryption of the same data is different, kinda like the salt)
+    nonce = get_random_bytes(16)
+
+    #sets up the cipher with the key, aes mode, and nonce
+    cipher = AES.new(key, AES.MODE_GCM, nonce=nonce)
+
+    #generates the ciphertext and a tag (verification basically)
+    ciphertext, tag = cipher.encrypt_and_digest(message)
+
+    return ciphertext, tag, nonce
 
 
+
+print(encrypt(key, b'amongus'))
 
