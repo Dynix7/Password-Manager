@@ -4,8 +4,9 @@ import argon2
 
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
-import tkinter as tk
 import json
+import sys
+import os
 #I'll add a GUI if i feel like it lol
 
 #haha guys im aura farming by making insecure password manager
@@ -26,7 +27,7 @@ def getKey(password=None, salt=None):
     password = password.encode()
 
 
-    #Generate random 16 byte salt
+    #Generate random 16 byte salt if none provided
     if salt == None:
         salt = get_random_bytes(16)
 
@@ -62,9 +63,12 @@ def encrypt(key, message):
     return ciphertext, tag, nonce
 
 
-def decrypt(ciphertext, tag, nonce, key):
+def decrypt(ciphertext, tag, nonce, password, salt):
+
+    key = getKey(password, salt)
 
     cipher = AES.new(key, AES.MODE_GCM, nonce=nonce)
+
     message = cipher.decrypt_and_verify(ciphertext, tag)
 
     message = message.decode()
@@ -72,8 +76,8 @@ def decrypt(ciphertext, tag, nonce, key):
 
     return message
 
-    
-    
+
+
 
 
 
