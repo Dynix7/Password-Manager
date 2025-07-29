@@ -10,13 +10,34 @@ import tkinter as tk
 #Generate salt, Added to the password so hash output is differnt and rainbow table less work
 salt = b''
 
+#Sets up the argon2 thingy
+ph = argon2.PasswordHasher()
 
 password = input("Enter Password: ")
 
-ph = argon2.PasswordHasher()
 
 
 
+def getHash(password=None):
+
+    #Prompts for a password if one isn't given
+    if password == None:
+        password = input("Enter Password: ")
+    #Generates the Hash from given password and gives the Salt and the Hash
+    result = ph.hash(password)
+
+    parts = result.split("$")
+
+    #Separates the given and only returns the salt and hash not the other parameters
+    #btw this only works since im just using the default settings for this
+
+    salt = parts[4]
+    hash = parts[5]
+
+    return hash, salt
+
+
+print(getHash(password=password))
 
 
 
