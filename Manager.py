@@ -11,7 +11,11 @@ import os
 
 #haha guys im aura farming by making insecure password manager
 
+#Where the data is saved
+storage = "storage.bin"
 
+#Variable for seeing if the database is empty
+empty = True
 
 
 #HM OK CHAT ACTUALLY IT GIVES THE BASE64 AND NOT ACTUAL BYTES SO CHAT WAIT A SEC
@@ -38,7 +42,6 @@ def getKey(password=None, salt=None):
 
 
     return key, salt
-
 
 
 
@@ -83,6 +86,29 @@ password = input("Enter Master Password: ")
 
 
 
+try:
+    with open(storage, "rb") as f:
+        
+        #Checks if the database is empty
+        if f.read() == b'':
+            print("file empty")
+            empty = True
+
+        else:
+            empty = False
+
+#Creates database if none exists
+
+except FileNotFoundError:
+    with open(storage, "wb") as f:
+        empty = True
+        pass
+
+print(empty)
+
+
+
+
 while True:
 
     choice = input("a. Add password  b. Retrieve password  c. Exit \n")
@@ -94,23 +120,19 @@ while True:
         loginpass = input("Enter password: ")
         
 
-        confirmation = input(f"{website} {user} {loginpass}.  Is this correct y/n")
+        confirmation = input(f"{website} {user} {loginpass}.  Is this correct y/n \n")
 
         if confirmation == "y":
-            login = {"Website": website, "Username": user, "Password": loginpass}
-        
 
+            login = {"Website": website, "Username": user, "Password": loginpass}
 
 
     elif choice == "b":
         pass
 
-    
-
 
     elif choice == "c":
-        pass
-
+        sys.exit()
 
 
     else:
