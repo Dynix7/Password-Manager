@@ -127,15 +127,14 @@ if empty == False:
         message = decrypt(ciphertext, tag, nonce, password, salt)
     except ValueError:
         print("Retry, decryption failed ur cooked lilbro")
-
-
+        sys.exit()
 
 
 
 
 while True:
 
-    choice = input("a. Add password  b. Print Passwords  c. Exit \n")
+    choice = input("a. Add password  b. Print Passwords  c. Clear Database d. Exit \n")
 
     if choice == "a":
 
@@ -167,12 +166,21 @@ while True:
 
 
     elif choice == "b":
-
-        for i in message:
-            print(i.values())
+        try:
+            for i in message:
+                print(i.values())
+        except NameError:
+            print("File's empty")
 
 
     elif choice == "c":
+        if input("Are you sure you want to clear EVERYTHING? y/n \n") == "y":
+            with open("storage.bin", "wb") as f:
+                pass
+            sys.exit()
+
+
+    elif choice == "d":
         #Generate new key and nonce, salt, and tag
       
         
@@ -186,7 +194,7 @@ while True:
             f.write(tag)
             f.write(nonce)
             f.write(ciphertext)
-
+        print("Data encrypted and Stored")
         sys.exit()
 
 
