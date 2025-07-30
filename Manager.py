@@ -67,8 +67,8 @@ def encrypt(key, message):
 
 def decrypt(ciphertext, tag, nonce, password, salt):
 
-    key = getKey(password, salt)
-
+    key, salt = getKey(password, salt)
+    
     cipher = AES.new(key, AES.MODE_GCM, nonce=nonce)
 
     message = cipher.decrypt_and_verify(ciphertext, tag)
@@ -125,12 +125,8 @@ if empty == False:
 
     try:
         message = decrypt(ciphertext, tag, nonce, password, salt)
-        
-
     except ValueError:
-
-        print("error decrypting retry entering the password")
-        sys.exit()
+        print("Retry, decryption failed ur cooked lilbro")
 
 
 
@@ -158,7 +154,9 @@ while True:
 
             if empty == False:
                 #Adds the login to the list
-                message = message.append(login)
+                
+                message.append(login)
+                
                 print("Login added")
 
             if empty == True:
