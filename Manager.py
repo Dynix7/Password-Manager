@@ -128,7 +128,6 @@ if empty == False:
         message = decrypt(ciphertext, tag, nonce, password, salt)
         
 
-
     except ValueError:
 
         print("error decrypting retry entering the password")
@@ -155,22 +154,24 @@ while True:
 
         if confirmation == "y":
 
+            #Puts all of the data into a dictionary
             login = {"Website": website, "Username": user, "Password": loginpass}
 
+            if empty == False:
+                #Adds the login to the list
+                message = message.append(login)
+                print("Login added")
 
-
-
-
-
-
-
-
+            if empty == True:
+                #Creates a list with the login dictionary in it
+                message = [login]
+                print("login added")
 
 
 
     elif choice == "b":
 
-        for i in message.len():
+        for i in len(message):
             message[i].values()
 
 
