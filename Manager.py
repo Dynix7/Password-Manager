@@ -1,4 +1,3 @@
-import atexit
 import argon2
 #https://argon2-cffi.readthedocs.io/en/stable/api.html
 
@@ -176,6 +175,20 @@ while True:
 
 
     elif choice == "c":
+        #Generate new key and nonce, salt, and tag
+      
+        
+        key, salt = getKey(password)
+        #Rencryption of data
+        ciphertext, tag, nonce = encrypt(key, message)
+
+        #Writing everything back to the file
+        with open("storage.bin", "wb") as f:
+            f.write(salt)
+            f.write(tag)
+            f.write(nonce)
+            f.write(ciphertext)
+
         sys.exit()
 
 
