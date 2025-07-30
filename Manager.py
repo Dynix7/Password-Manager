@@ -81,16 +81,14 @@ def decrypt(ciphertext, tag, nonce, password, salt):
 
 
 
-
-
-
-
 password = input("Enter Master Password: ")
 
-#REMINDER ORDER: SALT, TAG, NONCE, CIPHERTEXT
 
 
+#REMINDER ORDER OF DATA: SALT, TAG, NONCE, CIPHERTEXT
+#ALSO THE ACTUAL LOGINS AND STUFF ARE GIVEN AS LIST WITH DICTIONARIES INSIDE
 
+#READS THE DATA 
 try:
     with open(storage, "rb") as f:
 
@@ -113,6 +111,7 @@ try:
 
             empty = False
 
+
 #Creates database if none exists
 
 except FileNotFoundError:
@@ -121,9 +120,20 @@ except FileNotFoundError:
         pass
 
 
-#DATA 
+
+#DECRYPTS THE DATA 
 if empty == False:
-    message = decrypt(ciphertext, tag, nonce, password, salt)
+
+    try:
+        message = decrypt(ciphertext, tag, nonce, password, salt)
+        
+
+
+    except ValueError:
+
+        print("error decrypting retry entering the password")
+        sys.exit()
+
 
 
 
@@ -147,7 +157,7 @@ while True:
 
             login = {"Website": website, "Username": user, "Password": loginpass}
 
-            
+
 
 
 
@@ -159,7 +169,9 @@ while True:
 
 
     elif choice == "b":
-        pass
+
+        for i in message.len():
+            message[i].values()
 
 
     elif choice == "c":
@@ -167,7 +179,7 @@ while True:
 
 
     else:
-        print("Enter valid option")
+        print("Enter valid option bozo")
         continue
 
 
