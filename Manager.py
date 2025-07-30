@@ -65,6 +65,7 @@ def encrypt(key, message):
     return ciphertext, tag, nonce
 
 
+
 def decrypt(ciphertext, tag, nonce, password, salt):
 
     key = getKey(password, salt)
@@ -81,9 +82,9 @@ def decrypt(ciphertext, tag, nonce, password, salt):
 
 
 
-
 password = input("Enter Master Password: ")
 
+#REMINDER ORDER: SALT, TAG, NONCE, CIPHERTEXT
 
 
 try:
@@ -95,6 +96,10 @@ try:
             empty = True
 
         else:
+            
+            
+
+
             empty = False
 
 #Creates database if none exists
@@ -103,8 +108,6 @@ except FileNotFoundError:
     with open(storage, "wb") as f:
         empty = True
         pass
-
-print(empty)
 
 
 
@@ -122,9 +125,12 @@ while True:
 
         confirmation = input(f"{website} {user} {loginpass}.  Is this correct y/n \n")
 
+
         if confirmation == "y":
 
             login = {"Website": website, "Username": user, "Password": loginpass}
+
+
 
 
     elif choice == "b":
