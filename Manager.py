@@ -12,7 +12,6 @@ import os
 #haha guys im aura farming by making insecure password manager
 
 
-password = input("Enter Password: ")
 
 
 #HM OK CHAT ACTUALLY IT GIVES THE BASE64 AND NOT ACTUAL BYTES SO CHAT WAIT A SEC
@@ -75,6 +74,43 @@ def decrypt(ciphertext, tag, nonce, password, salt):
     message = json.loads(message)
 
     return message
+
+
+
+password = input("Enter Master Password: ")
+
+while True:
+
+    choice = input("a. Add password  b. Retrieve password  c. Exit \n")
+
+    if choice == "a":
+
+        website = input("Enter website: ")
+        user = input("Enter username: ")
+        loginpass = input("Enter password: ")
+        
+        confirmation = input(f"{website} {user} {loginpass}.  Is this correct y/n")
+
+        if confirmation == "y":
+            login = {"Website": website, "Username": user, "Password": loginpass}
+        
+
+ 
+    
+    elif choice == "b":
+        pass
+
+    
+
+
+    elif choice == "c":
+        pass
+
+
+
+    else:
+        print("Enter valid option")
+        continue
 
 
 
