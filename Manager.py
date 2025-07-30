@@ -82,43 +82,50 @@ def decrypt(ciphertext, tag, nonce, password, salt):
 
 
 
+
+
+
 password = input("Enter Master Password: ")
 
 #REMINDER ORDER: SALT, TAG, NONCE, CIPHERTEXT
 
 
-def retrieveData():
 
-    try:
-        with open(storage, "rb") as f:
-
-
-            #Checks if the database is empty
-            if f.read() == b'':
-                print("file empty")
-                empty = True
-
-            else:
-                f.seek(0)
-
-                salt = f.read(16)
-
-                tag = f.read(16)
-
-                nonce = f.read(16)
-
-                data = f.read()
-
-                empty = False
+try:
+    with open(storage, "rb") as f:
 
 
-    #Creates database if none exists
-
-
-    except FileNotFoundError:
-        with open(storage, "wb") as f:
+        #Checks if the database is empty
+        if f.read() == b'':
+            print("file empty")
             empty = True
-            pass
+
+        else:
+            f.seek(0)
+
+            salt = f.read(16)
+
+            tag = f.read(16)
+
+            nonce = f.read(16)
+
+            ciphertext = f.read()
+
+            empty = False
+
+#Creates database if none exists
+
+except FileNotFoundError:
+    with open(storage, "wb") as f:
+        empty = True
+        pass
+
+
+#DATA 
+if empty == False:
+    message = decrypt(ciphertext, tag, nonce, password, salt)
+
+
 
 
 
@@ -139,6 +146,11 @@ while True:
         if confirmation == "y":
 
             login = {"Website": website, "Username": user, "Password": loginpass}
+
+            
+
+
+
 
 
 
