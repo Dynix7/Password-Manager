@@ -87,34 +87,44 @@ password = input("Enter Master Password: ")
 #REMINDER ORDER: SALT, TAG, NONCE, CIPHERTEXT
 
 
-try:
-    with open(storage, "rb") as f:
-        
-        #Checks if the database is empty
-        if f.read() == b'':
-            print("file empty")
+def retrieveData():
+
+    try:
+        with open(storage, "rb") as f:
+
+
+            #Checks if the database is empty
+            if f.read() == b'':
+                print("file empty")
+                empty = True
+
+            else:
+                f.seek(0)
+
+                salt = f.read(16)
+
+                tag = f.read(16)
+
+                nonce = f.read(16)
+
+                data = f.read()
+
+                empty = False
+
+
+    #Creates database if none exists
+
+
+    except FileNotFoundError:
+        with open(storage, "wb") as f:
             empty = True
-
-        else:
-            
-            
-
-
-            empty = False
-
-#Creates database if none exists
-
-except FileNotFoundError:
-    with open(storage, "wb") as f:
-        empty = True
-        pass
-
+            pass
 
 
 
 while True:
 
-    choice = input("a. Add password  b. Retrieve password  c. Exit \n")
+    choice = input("a. Add password  b. Print Passwords  c. Exit \n")
 
     if choice == "a":
 
@@ -129,6 +139,9 @@ while True:
         if confirmation == "y":
 
             login = {"Website": website, "Username": user, "Password": loginpass}
+
+
+
 
 
 
