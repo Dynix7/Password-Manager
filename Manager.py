@@ -77,7 +77,11 @@ def decrypt(ciphertext, tag, nonce, password, salt):
 
 
 
+
+
 password = input("Enter Master Password: ")
+
+
 
 while True:
 
@@ -89,14 +93,15 @@ while True:
         user = input("Enter username: ")
         loginpass = input("Enter password: ")
         
+
         confirmation = input(f"{website} {user} {loginpass}.  Is this correct y/n")
 
         if confirmation == "y":
             login = {"Website": website, "Username": user, "Password": loginpass}
         
 
- 
-    
+
+
     elif choice == "b":
         pass
 
