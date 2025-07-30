@@ -149,7 +149,7 @@ while True:
         loginpass = input("Enter password: ")
         
 
-        confirmation = input(f"{website} {user} {loginpass}.  Is this correct y/n \n")
+        confirmation = input(f"Website:{website} Username:{user} Password:{loginpass} Is this correct y/n \n")
 
 
         if confirmation == "y":
@@ -171,8 +171,8 @@ while True:
 
     elif choice == "b":
 
-        for i in len(message):
-            message[i].values()
+        for i in message:
+            print(i.values())
 
 
     elif choice == "c":
