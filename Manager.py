@@ -5,10 +5,11 @@ from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
 import json
 import sys
-import os
-#I'll add a GUI if i feel like it lol
 
-#haha guys im aura farming by making insecure password manager
+#I'll add a GUI if i feel like it lol
+#i did not feel like it
+
+
 
 #Where the data is saved
 storage = "storage.bin"
@@ -134,7 +135,7 @@ if empty == False:
 
 while True:
 
-    choice = input("a. Add password  b. Print Passwords  c. Clear Database d. Exit \n")
+    choice = input("a. Add password  b. Print Passwords  c. Clear Database d. Change Master Password e. Exit \n")
 
     if choice == "a":
 
@@ -143,7 +144,7 @@ while True:
         loginpass = input("Enter password: ")
         
 
-        confirmation = input(f"Website:{website} Username:{user} Password:{loginpass} Is this correct y/n \n")
+        confirmation = input(f"Website: {website} Username: {user} Password: {loginpass} \n Is this correct y/n \n")
 
 
         if confirmation == "y":
@@ -179,8 +180,11 @@ while True:
                 pass
             sys.exit()
 
-
     elif choice == "d":
+        password = input("Please enter new master password: ")
+        print("Password Changed")
+
+    elif choice == "e":
         #Generate new key and nonce, salt, and tag
       
         
