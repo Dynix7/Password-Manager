@@ -83,7 +83,7 @@ def decrypt(ciphertext, tag, nonce, password, salt):
 
 password = input("Enter Master Password: ")
 
-
+message = []
 
 #REMINDER ORDER OF DATA: SALT, TAG, NONCE, CIPHERTEXT
 #ALSO THE ACTUAL LOGINS AND STUFF ARE GIVEN AS LIST WITH DICTIONARIES INSIDE
@@ -159,10 +159,13 @@ while True:
                 
                 print("Login added")
 
-            if empty == True:
+            if empty == True and len(message) == 0:
                 #Creates a list with the login dictionary in it
                 message = [login]
                 print("login added")
+            elif empty == True:
+                message.append(login)
+                print("Login Added")
 
 
 
